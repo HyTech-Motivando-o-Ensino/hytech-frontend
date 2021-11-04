@@ -1,0 +1,25 @@
+#icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+}
+
+.bg-user {
+    background-color: #c2004a !important;
+}
+.bg-bot {
+    background-color: #d38200 !important;
+}
+
+.text {
+    background-color: white;
+    width: 300px;
+    min-height: 40px;
+    border-radius: 15px;
+    margin-left: 10px;
+    padding: 10px;
+}

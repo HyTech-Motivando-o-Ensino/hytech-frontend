@@ -1,0 +1,9 @@
+h1 {
+    margin: 0;
+}
+.bg-secondary {
+    background-color: #909090 !important;
+}
+.conversation {
+    background-color: #dddddd;
+}
