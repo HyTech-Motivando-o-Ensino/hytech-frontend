@@ -1,3 +1,8 @@
+.content {
+    width: 300px;
+    min-height: 40px;
+    color: white;
+}
 #icon {
   width: 50px;
   height: 50px;
@@ -8,18 +13,27 @@
   line-height: 50px;
 }
 
-.bg-user {
-    background-color: #c2004a !important;
-}
-.bg-bot {
-    background-color: #d38200 !important;
-}
-
 .text {
-    background-color: white;
-    width: 300px;
-    min-height: 40px;
-    border-radius: 15px;
+    border-radius: 40px;
     margin-left: 10px;
     padding: 10px;
+}
+
+.bg-bot {
+    background-color: #409FF8;
+
+}
+.bg-user {
+    background-color: #FD813B;;
+}
+.message-header {
+    min-height: 60px;
+    border-radius: 40px 40px 0px 0px;
+}
+.box-bg {
+    background-color: #EFEFEF;
+}
+.box-content {
+    border-radius: 0px 0px 40px 40px;
+    border: 1px solid #C4C4C4
 }
