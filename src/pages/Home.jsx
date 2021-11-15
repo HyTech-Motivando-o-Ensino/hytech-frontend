@@ -12,7 +12,7 @@ import './Home.css';
 import hello from '../hooks/hello';
 
 function Home(props) {
-    const {canMessage, components, addComponent} = useContext(HomeContext);
+    const {components, addComponent} = useContext(HomeContext);
     const [rendered, setRendered] = useState(false);
     const messageEl = useRef(null);
 
@@ -20,7 +20,6 @@ function Home(props) {
         messageEl.current.scrollIntoView({ behavior: "smooth" })
     };
     const helloComp = hello();
-    const disabled = !canMessage;
     
     useEffect(() => {
         if(rendered == false) {
@@ -51,7 +50,7 @@ function Home(props) {
                 ))}
             </div>
             <Container>
-                {disabled == true ? <input type="text" id="message" className="message-input shadow col-11" disabled /> : <input type="text" id="message" placeholder="Mensagem" className="message-input shadow col-11" />}
+                {<input type="text" id="message" className="message-input shadow col-11" disabled /> }
                 <button className="btn bg-orange" ><SendIcon fill='#FD813B' /></button>
             </Container>
         </Container>

@@ -6,7 +6,8 @@ export const HomeContext = React.createContext({});
 
 function HomeProvider(props) {
 
-    const [canMessage, setCanMessage] = useState(false);
+    const BOT = 'bot';
+    const [allData, setAllData] = useState({});
     const [components, setComponents] = useState([]);
 
     const defaultOptions = {
@@ -22,7 +23,7 @@ function HomeProvider(props) {
         console.log('rodando');
         console.log(data.children);
         data.key = Math.random();
-        if (data.entity == 'bot') {
+        if (data.entity == BOT) {
             setComponents((prev) => [...prev, { entity: data.entity, children: (<Lottie options={defaultOptions} fill="white" height={100} width={100}/>) }]);
             setTimeout(() => {
                 setComponents((prev) => {
@@ -35,8 +36,14 @@ function HomeProvider(props) {
         }
     };
 
+    const addData = (key, value) => {
+        setAllData((prev) => {
+            prev[key] = value;
+            return prev;
+        })
+    }
     return (
-        <HomeContext.Provider value={{ canMessage, setCanMessage, components, addComponent, setComponents }}>
+        <HomeContext.Provider value={{ components, addComponent, setComponents, allData, addData }}>
             {props.children}
         </HomeContext.Provider>
     )
