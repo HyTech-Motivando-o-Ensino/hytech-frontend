@@ -1,0 +1,51 @@
+h1 {
+    margin: 0;
+}
+.bg-secondary {
+    background-color: #909090 !important;
+}
+.conversation {
+    background-color: #EFEFEF;
+    height: 550px;
+    overflow: scroll;
+}
+
+a {
+    text-decoration: inherit;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FD813B;
+    color: white;
+    padding: 10px;
+    border-radius: 30px 30px 0px 0px;
+    margin-top: 20px;
+}
+.message-input {
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 1px solid black;
+    height: 45px;
+    padding: 10px;
+}
+.bg-orange {
+    margin-left: 15px;
+}
+input:disabled {
+    background-color: rgba(0, 0, 0, 0.24);
+}
+
+.link {
+    color: #409FF8;
+    text-align: center;
+    cursor: pointer;
+}
+.link p {
+    margin-top: 5px;
+    margin-bottom: 5px
+}
+.link hr {
+    margin: 0;
+}
