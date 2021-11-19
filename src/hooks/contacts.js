@@ -121,9 +121,18 @@ function SelectProfessors(props) {
             id: 2
         }]);
     }, [])
+
+    const showProfessorContacts = (professor) => {
+        props.addComponent({
+            entity: 'user',
+            children: (<>{professor}</>)
+        })
+        const professorContacts = showContact({addComponent: props.addComponent})
+        professorContacts.getComponent();
+    }
     return (<div className="link">
         {subjects.map((subject) => {
-            return (<div className="link" key={subject.id}>{subject.name}<hr /></div>)
+            return (<div className="link" key={subject.id} onClick={() => showProfessorContacts('ola mundo')}>{subject.name}<hr /></div>)
         })}
     </div>)
 } 
@@ -135,6 +144,37 @@ function professors(data) {
             isBox: true,
             title: 'Qual professor você deseja falar?',
             children: (<SelectProfessors addComponent={data.addComponent} />)
+        
+        })
+    }
+    return {getComponent};
+}
+function ShowContacts(props) {
+    const [contacts, setContacts] = useState({})
+    const {allData, addData} = useContext(HomeContext);
+
+    useEffect(() => {
+        // GET PERIODOS FROM COURSE
+        setContacts({
+            slack: '@JulianoMBorges',
+            email: 'jmb@cesar.school',
+            whatsapp: '(11) 999999999'
+        });
+    }, [])
+    return (<div className="text-secondary text-center">
+        <p>Slack {contacts.slack}</p>
+        <p>Email {contacts.email}</p>
+        <p>Whatsapp {contacts.whatsapp}</p>
+    </div>)
+} 
+function showContact(data) {
+
+    const getComponent = () => {
+        data.addComponent({
+            entity: 'bot',
+            isBox: true,
+            title: 'Contatos do professor',
+            children: (<ShowContacts />)
         
         })
     }
