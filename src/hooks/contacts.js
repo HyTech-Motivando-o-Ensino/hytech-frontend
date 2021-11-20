@@ -132,7 +132,7 @@ function SelectProfessors(props) {
     }
     return (<div className="link">
         {subjects.map((subject) => {
-            return (<div className="link" key={subject.id} onClick={() => showProfessorContacts('ola mundo')}>{subject.name}<hr /></div>)
+            return (<div className="link" key={subject.id} onClick={() => showProfessorContacts(subject.name)}>{subject.name}<hr /></div>)
         })}
     </div>)
 } 
