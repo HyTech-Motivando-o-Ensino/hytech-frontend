@@ -20,8 +20,6 @@ function HomeProvider(props) {
       };
 
     const addComponent = (data) => {
-        console.log('rodando');
-        console.log(data.children);
         data.key = Math.random();
         if (data.entity == BOT) {
             setComponents((prev) => [...prev, { entity: data.entity, children: (<Lottie options={defaultOptions} fill="white" height={100} width={100}/>) }]);

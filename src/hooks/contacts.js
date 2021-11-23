@@ -1,53 +1,35 @@
 import { useContext, useEffect, useState } from "react"
 import { Container } from "reactstrap";
 import { HomeContext } from "../context/home";
+import useFetch from "./fetchData";
 
 function SelectCourse(props) {
 
     const [courses, setCourses] = useState([]);
     const {allData, addData} = useContext(HomeContext);
-    useEffect(() => {
-        // GET COURSES
-        addData('courses', [
-            {
-                id: 1,
-                name: 'Design',
-                periods: [1, 2, 3, 4, 5, 6, 7, 8]
-            },
-            {
-                id: 2,
-                name: 'Ciências da Computacao',
-                periods: [1, 2, 3, 4, 5]
-            }
-    
-        ])
-        addData('allPeriods', [1, 2, 3, 4, 5, 6, 0, 8]);
-        setCourses([
-            {
-                id: 1,
-                name: 'Design',
-            },
-            {
-                id: 2,
-                name: 'Ciências da Computacao'
-            }
-    
-        ]);
+
+    const {getCourses} = useFetch()
+    useEffect(async () => {
+        const courses = await getCourses();
+        addData('courses', courses)
+        setCourses(courses);
         console.log(courses);
         
     }, [])
-    const selectCourse = (id) => {
+    const selectCourse = (index) => {
+        const course = allData.courses[index]
         props.addComponent({
             entity: 'user',
-            children: (<>{id}</>)
+            children: (<>{course.name}</>)
         })
+        addData('selectedCourse', course);
         const periodsComp = periods({addComponent: props.addComponent})
         periodsComp.getComponent();
     }
     return (
         <div>
             {courses.map((course) => (
-                <div className="link" onClick={() => selectCourse(course.name)} key={course.id}>
+                <div className="link" onClick={() => selectCourse(course.index)} key={course.id}>
                     <p>{course.name}</p>
                 <hr />
             </div>
@@ -75,16 +57,15 @@ function SelectPeriods(props) {
     const {allData, addData} = useContext(HomeContext);
 
     useEffect(() => {
-        // GET PERIODOS FROM COURSE
-        setPeriods(allData.courses[0].periods);
+        setPeriods(allData.selectedCourse.periods);
     }, [])
 
     const getProfessors = (period) => {
         props.addComponent({
             entity: 'user',
-            children: (<>{period}</>)
+            children: (<>Meu periodo: {period}</>)
         })
-        const professorsComp = professors({addComponent: props.addComponent})
+        const professorsComp = professors({selected: period, course: allData.selectedCourse.id ,addComponent: props.addComponent})
         professorsComp.getComponent();
     }
     return (<div className="link">
@@ -107,32 +88,28 @@ function periods(data) {
     return {getComponent};
 }
 function SelectProfessors(props) {
-    const [subjects, setSubjects] = useState([])
+    const [professors, setProfessors] = useState([])
     const {allData, addData} = useContext(HomeContext);
 
-    useEffect(() => {
-        // GET PERIODOS FROM COURSE
-        setSubjects([{
-            name: 'Ricardo Costa',
-            id: 1
-        },
-        {
-            name: 'Juliano M. Borges',
-            id: 2
-        }]);
+    const {getProfessors} = useFetch();
+    useEffect(async () => {
+        const professors = await getProfessors(props.period, props.course);
+        addData('professors', professors);
+        setProfessors(professors);
     }, [])
 
-    const showProfessorContacts = (professor) => {
+    const showProfessorContacts = (index) => {
+        const professor = allData.professors[index];
         props.addComponent({
             entity: 'user',
-            children: (<>{professor}</>)
+            children: (<>Contatos do professor {professor.name}</>)
         })
-        const professorContacts = showContact({addComponent: props.addComponent})
+        const professorContacts = showContact({professor: professor.index, addComponent: props.addComponent})
         professorContacts.getComponent();
     }
     return (<div className="link">
-        {subjects.map((subject) => {
-            return (<div className="link" key={subject.id} onClick={() => showProfessorContacts(subject.name)}>{subject.name}<hr /></div>)
+        {professors.map((professor) => {
+            return (<div className="link" key={professor.id} onClick={() => showProfessorContacts(professor.index)}>{professor.name}<hr /></div>)
         })}
     </div>)
 } 
@@ -143,7 +120,7 @@ function professors(data) {
             entity: 'bot',
             isBox: true,
             title: 'Qual professor você deseja falar?',
-            children: (<SelectProfessors addComponent={data.addComponent} />)
+            children: (<SelectProfessors addComponent={data.addComponent} period={data.selected} course={data.course} />)
         
         })
     }
@@ -152,19 +129,20 @@ function professors(data) {
 function ShowContacts(props) {
     const [contacts, setContacts] = useState({})
     const {allData, addData} = useContext(HomeContext);
-
+    const favorites = {
+        1: 'SLACK',
+        2: 'EMAIL',
+        3: 'WHATSAPP'
+    }
     useEffect(() => {
-        // GET PERIODOS FROM COURSE
-        setContacts({
-            slack: '@JulianoMBorges',
-            email: 'jmb@cesar.school',
-            whatsapp: '(11) 999999999'
-        });
+        const contacts = allData.professors[props.professor]
+        setContacts(contacts);
     }, [])
     return (<div className="text-secondary text-center">
-        <p>Slack {contacts.slack}</p>
-        <p>Email {contacts.email}</p>
-        <p>Whatsapp {contacts.whatsapp}</p>
+        <p><b>Slack</b> {contacts.slack}</p>
+        <p><b>Email</b> {contacts.email}</p>
+        <p><b>Whatsapp</b> {contacts.whatsapp}</p>
+        <p><b>Preferencial:</b> {favorites[contacts.favorite]}</p>
     </div>)
 } 
 function showContact(data) {
@@ -174,7 +152,7 @@ function showContact(data) {
             entity: 'bot',
             isBox: true,
             title: 'Contatos do professor',
-            children: (<ShowContacts />)
+            children: (<ShowContacts professor={data.professor} />)
         
         })
     }
