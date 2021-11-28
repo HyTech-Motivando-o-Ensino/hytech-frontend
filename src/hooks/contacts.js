@@ -13,7 +13,6 @@ function SelectCourse(props) {
         const courses = await getCourses();
         addData('courses', courses)
         setCourses(courses);
-        console.log(courses);
         
     }, [])
     const selectCourse = (index) => {
