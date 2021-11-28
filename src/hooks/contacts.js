@@ -138,10 +138,10 @@ function ShowContacts(props) {
         setContacts(contacts);
     }, [])
     return (<div className="text-secondary text-center">
-        <p id="contact-slack"><b>Slack</b> {contacts.slack}</p>
-        <p id="contact-email"><b>Email</b> {contacts.email}</p>
-        <p id="contact-whatsapp"><b>Whatsapp</b> {contacts.whatsapp}</p>
-        <p id="contact-preferencial"><b>Preferencial:</b> {favorites[contacts.favorite]}</p>
+        <p><b>Slack</b><label id="contact-slack"> {contacts.slack}</label></p>
+        <p><b>Email</b><label id="contact-email"> {contacts.email}</label></p>
+        <p><b>Whatsapp</b><label id="contact-whatsapp"> {contacts.whatsapp}</label></p>
+        <p><b>Preferencial:</b><label id="contact-preferencial"> {favorites[contacts.favorite]}</label></p>
     </div>)
 } 
 function showContact(data) {
