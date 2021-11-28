@@ -50,8 +50,8 @@ class PythonOrgSearch(unittest.TestCase):
                                                 element = WebDriverWait(self.driver, 100).until(
                                                         EC.presence_of_element_located((By.ID, contacts[i]))
                                                 )
-
-                                                assert options[curso][periodo][professor][i] in element.text
+                                                self.assertEqual(options[curso][periodo][professor][i], element.text, f"-------------------- ERRO --------------------\nOpcao: Contatos - Curso: {curso} - Periodo: {periodo} - Professor: {professor}\nExpected: {options[curso][periodo][professor][i]}\nActual: {element.text}")
+                                                #assert options[curso][periodo][professor][i] == element.text
 
                                         if count_professor < len(options[curso][periodo]):
                                                 self.driver.refresh()
