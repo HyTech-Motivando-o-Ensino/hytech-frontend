@@ -16,15 +16,15 @@ function Clickable(props) {
                 <hr />
             </div>
             <div className="link">
-                <p>Links das salas</p>
+                <p id="select-links">Links das salas</p>
                 <hr />
             </div>
             <div className="link">
-                <p>Código do classroom</p>
+                <p id="select-classroom">Código do classroom</p>
                 <hr />
             </div>
             <div className="link">
-                <p>Avisos</p>
+                <p id="select-warnings">Avisos</p>
             </div>
         </div>
     )

@@ -29,7 +29,7 @@ function SelectCourse(props) {
         <div>
             {courses.map((course) => (
                 <div className="link" onClick={() => selectCourse(course.index)} key={course.id}>
-                    <p>{course.name}</p>
+                    <p id={course.name}>{course.name}</p>
                 <hr />
             </div>
             ))}
@@ -69,7 +69,7 @@ function SelectPeriods(props) {
     }
     return (<div className="link">
         {periods.map((period) => {
-            return (<p className="d-inline m-2" onClick={() => getProfessors(period)} key={period}>{period}</p>)
+            return (<p className="d-inline m-2" id={period} onClick={() => getProfessors(period)} key={period}>{period}</p>)
         })}
     </div>)
 } 
@@ -108,7 +108,7 @@ function SelectProfessors(props) {
     }
     return (<div className="link">
         {professors.map((professor) => {
-            return (<div className="link" key={professor.id} onClick={() => showProfessorContacts(professor.index)}>{professor.name}<hr /></div>)
+            return (<div className="link" key={professor.id}  id={professor.name} onClick={() => showProfessorContacts(professor.index)}>{professor.name}<hr /></div>)
         })}
     </div>)
 } 
@@ -138,10 +138,10 @@ function ShowContacts(props) {
         setContacts(contacts);
     }, [])
     return (<div className="text-secondary text-center">
-        <p><b>Slack</b> {contacts.slack}</p>
-        <p><b>Email</b> {contacts.email}</p>
-        <p><b>Whatsapp</b> {contacts.whatsapp}</p>
-        <p><b>Preferencial:</b> {favorites[contacts.favorite]}</p>
+        <p id="contact-slack"><b>Slack</b> {contacts.slack}</p>
+        <p id="contact-email"><b>Email</b> {contacts.email}</p>
+        <p id="contact-whatsapp"><b>Whatsapp</b> {contacts.whatsapp}</p>
+        <p id="contact-preferencial"><b>Preferencial:</b> {favorites[contacts.favorite]}</p>
     </div>)
 } 
 function showContact(data) {
