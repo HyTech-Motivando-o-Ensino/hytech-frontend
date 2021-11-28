@@ -12,7 +12,7 @@ function Clickable(props) {
     return (
         <div>
             <div className="link" onClick={redirectContact}>
-                <p>Contatos</p>
+                <p id="select-contacts">Contatos</p>
                 <hr />
             </div>
             <div className="link">
